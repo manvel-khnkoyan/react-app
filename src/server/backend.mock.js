@@ -1,4 +1,3 @@
-
 export default {
   /**
    * Authenticate
@@ -7,7 +6,7 @@ export default {
   async authorize(credentials) {
     return {
       data: {
-        token: "TEST"
+        accessToken: "TEST"
       }
     };
   },
@@ -19,7 +18,7 @@ export default {
     return {
       data: {
         profile: {
-          name: "Manvel"
+          name: "Jhone"
         }
       }
     };

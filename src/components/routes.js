@@ -6,19 +6,25 @@ import Home from "./home";
 import NotFound from "./404";
 
 const mapStateToProps = store => ({
-  loggedIn: !!store.accessToken
+  loggedIn: !!store.authState.accessToken
 });
 
 class Routes extends React.Component {
+  unauthorizedRoutes = () => [
+    <Route key="home" exact path="/" component={Home} />,
+    <Route key="404" component={NotFound} />
+  ];
+
+  authorizedRoutes = () => [
+    <Route key="profile" exact path="/profile" component={Profile} />
+  ];
+
   render() {
     return (
       <Router>
         <Switch>
-          {this.props.loggedIn && <div>
-              <Route exact path="/profile" component={Profile} />
-          </div>}
-          <Route exact path="/" component={Home} />
-          <Route path="*" component={NotFound} />
+          {this.props.loggedIn && this.authorizedRoutes().map(i => i)}
+          {this.unauthorizedRoutes().map(i => i)}
         </Switch>
       </Router>
     );

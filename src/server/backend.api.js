@@ -12,8 +12,6 @@ export default {
    * @param {Object} credentials
    * */
   async authorize(credentials) {
-    console.log("Hellos");
-
     const result = await apiWrapper(axios.post)(`${domain}/auth`, credentials, {
       headers: { ...defaultHeaders, ...contentHeaders }
     });
