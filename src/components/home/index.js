@@ -12,13 +12,13 @@ class Home extends React.Component {
   handleLogin = () => {
     Api.authorize({})
       .then(({ data }) => {
-        Manager.dispatchEvent("LogIn", data);
+        Manager.dispatchGlobalEvent("LogIn", data);
       })
       .catch(alert);
   };
 
   handleLogout = () => {
-    Manager.dispatchEvent("LogOut");
+    Manager.dispatchGlobalEvent("LogOut");
   };
 
   render() {

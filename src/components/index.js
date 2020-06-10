@@ -8,7 +8,7 @@ class Index extends React.Component {
   componentDidMount() {
     const accessToken = storage.getItem("accessToken");
     if (accessToken) {
-      Manager.dispatchEvent("LogIn", { accessToken });
+      Manager.dispatchGlobalEvent("LogIn", { accessToken });
     }
   }
 

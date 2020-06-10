@@ -11,7 +11,12 @@ function Event(name) {
  * Manager
  */
 function Manager() {
+  const channelName = `${process.env.REACT_APP_NAME}-channel`;
   this.events = {};
+  this.broadcastChannel = new BroadcastChannel(channelName);
+  this.broadcastChannel.onmessage = ({ data }) => {
+    this.dispatchEvent(data.name, data.args || null);
+  };
 }
 
 /**
@@ -24,6 +29,20 @@ Manager.prototype.dispatchEvent = function(name, args) {
     this.events[`on${name}`].callbacks.forEach(function(callback) {
       callback(args);
     });
+  }
+};
+
+/**
+ * Dispatching Event
+ * @param {String} name
+ * @param args
+ */
+Manager.prototype.dispatchGlobalEvent = function(name, args) {
+  if (this.events[`on${name}`]) {
+    this.events[`on${name}`].callbacks.forEach(function(callback) {
+      callback(args);
+    });
+    this.broadcastChannel.postMessage({ name, args });
   }
 };
 

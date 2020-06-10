@@ -11,7 +11,7 @@ export function apiWrapper(fn) {
     } catch (e) {
       const status = e && e.response && e.response.status;
       if (status === 401) {
-        Manager.dispatchEvent("LogOut");
+        Manager.dispatchGlobalEvent("LogOut");
       }
       throw e;
     }
